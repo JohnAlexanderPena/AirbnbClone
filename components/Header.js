@@ -5,6 +5,7 @@ import {
   GlobeAltIcon,
   MenuIcon,
   UserCircleIcon,
+  UsersIcon,
 } from "@heroicons/react/solid";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
@@ -15,6 +16,11 @@ const Header = () => {
 
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
+  const [numberOfGuests, setNumberOfGuests] = useState(1);
+
+  const resetSearch = () => {
+    setSearchInput("");
+  };
 
   const selectionRange = {
     startDate: startDate,
@@ -69,6 +75,27 @@ const Header = () => {
             rangeColors={["#FD5B61"]}
             onChange={handleSelect}
           />
+          <div className="flex items-center border-b mb-4">
+            <h2 className="text-2xl flex-grow font-semibold">
+              Number of guests
+            </h2>
+            <UsersIcon className="h-5" />
+            <input
+              className="w-12 pl-2 text-lg outline-none text-red-400"
+              type="number"
+              min={1}
+              value={numberOfGuests}
+              onChange={(e) => setNumberOfGuests(e.target.value)}
+            />
+          </div>
+          <div>
+            <div className="flex">
+              <button className="flex-grow text-gray-500" onClick={resetSearch}>
+                Cancel
+              </button>
+              <button className="flex-grow text-red-400">Search</button>
+            </div>
+          </div>
         </div>
       )}
     </header>
