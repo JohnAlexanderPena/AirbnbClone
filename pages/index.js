@@ -1,9 +1,10 @@
 import Head from "next/head";
 import Banner from "../components/Banner";
 import Header from "../components/Header";
+import MediumCards from "../components/MediumCards";
 import SmallCard from "../components/SmallCard";
 
-export default function Home({ exploreData }) {
+export default function Home({ exploreData, cardsData }) {
   console.log(exploreData);
   return (
     <div className="">
@@ -17,8 +18,6 @@ export default function Home({ exploreData }) {
       <main className="max-w-7xl mx-auto px-8 sm:px-16">
         <section className="pt-6">
           <h2 className="text-4xl font-semibold pb-5">Explore Nearby</h2>
-          {/* Use server API Endpoints */}
-
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {exploreData?.map(({ img, distance, location }) => (
               <SmallCard
@@ -30,6 +29,13 @@ export default function Home({ exploreData }) {
             ))}
           </div>
         </section>
+
+        <section>
+          <h2 className="text-4xl font-semibold py-8">Live Anywhere</h2>
+          {cardsData.map(({ img, title }) => (
+            <MediumCards key={img} image={img} title={title} />
+          ))}
+        </section>
       </main>
     </div>
   );
@@ -40,9 +46,14 @@ export async function getStaticProps() {
     (results) => results.json()
   );
 
+  const cardsData = await fetch("https://links.papareact.com/zp1").then((res) =>
+    res.json()
+  );
+
   return {
     props: {
       exploreData,
+      cardsData,
     },
   };
 }
