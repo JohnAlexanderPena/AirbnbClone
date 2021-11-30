@@ -11,6 +11,7 @@ import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { DateRangePicker } from "react-date-range";
 import { useRouter } from "next/dist/client/router";
+import { useSelector, useDispatch } from "react-redux";
 
 const Header = () => {
   const [searchInput, setSearchInput] = useState("");
@@ -19,6 +20,7 @@ const Header = () => {
   const [endDate, setEndDate] = useState(new Date());
   const [numberOfGuests, setNumberOfGuests] = useState(1);
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const resetSearch = () => {
     setSearchInput("");
@@ -33,6 +35,14 @@ const Header = () => {
   const handleSelect = (ranges) => {
     setStartDate(ranges.selection.startDate);
     setEndDate(ranges.selection.endDate);
+  };
+
+  const search = () => {
+    dispatch({
+      type: "UPDATE_SEARCH",
+      payload: { startDate, endDate, numberOfGuests },
+    });
+    router.push("/search");
   };
 
   return (
@@ -98,7 +108,9 @@ const Header = () => {
               <button className="flex-grow text-gray-500" onClick={resetSearch}>
                 Cancel
               </button>
-              <button className="flex-grow text-red-400">Search</button>
+              <button onClick={search} className="flex-grow text-red-400">
+                Search
+              </button>
             </div>
           </div>
         </div>
