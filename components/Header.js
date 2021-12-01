@@ -42,7 +42,14 @@ const Header = () => {
       type: "UPDATE_SEARCH",
       payload: { startDate, endDate, numberOfGuests },
     });
-    router.push("/search");
+    router.push({
+      pathname: "/search",
+      query: {
+        location: searchInput,
+        startDate: startDate.toISOString(),
+        endDate: endDate.toISOString(),
+      },
+    });
   };
 
   return (
