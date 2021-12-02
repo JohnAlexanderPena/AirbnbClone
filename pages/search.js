@@ -2,17 +2,21 @@ import Footer from "../components/Footer";
 import Header from "../components/Header";
 import { useSelector } from "react-redux";
 import { format } from "date-fns";
+import InfoCard from "../components/InfoCard";
 
-const Search = () => {
+const Search = ({ searchResults }) => {
   const { startDate, endDate, numberOfGuests, searchInput } = useSelector(
-    (state) => state.search.search
+    (state) => state?.search?.search
   );
+
+  console.log(searchResults);
 
   const formattedStartDate = format(new Date(startDate), "MMMM dd yy");
   const formattedEndDate = format(new Date(endDate), "MMMM dd yy");
 
   const range = `${formattedStartDate} - ${formattedEndDate}`;
 
+  //   getServerSideProps();
   return (
     <div>
       <Header
@@ -33,6 +37,35 @@ const Search = () => {
             <p className="button">Rooms and Beds</p>
             <p className="button">More Filters</p>
           </div>
+
+          <div className="flex flex-col">
+            {searchResults.map(
+              ({
+                img,
+                location,
+                lat,
+                location,
+                long,
+                price,
+                star,
+                title,
+                total,
+              }) => (
+                <InfoCard
+                  key={img}
+                  img={img}
+                  location={location}
+                  title={title}
+                  lat={lat}
+                  long={long}
+                  price={price}
+                  start={star}
+                  title={title}
+                  total={total}
+                />
+              )
+            )}
+          </div>
         </section>
       </main>
       <Footer />
@@ -41,3 +74,13 @@ const Search = () => {
 };
 
 export default Search;
+
+export async function getServerSideProps() {
+  const searchResults = await fetch("https://links.papareact.com/isz").then(
+    (res) => res.json()
+  );
+
+  return {
+    props: { searchResults },
+  };
+}
