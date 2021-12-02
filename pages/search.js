@@ -12,13 +12,8 @@ const Search = ({ searchResults }) => {
     (state) => state?.search?.search
   );
 
-  console.log(searchResults);
-
-  const formattedStartDate = format(
-    new Date(startDate && startDate),
-    "MMMM dd yy"
-  );
-  const formattedEndDate = format(new Date(endDate && endDate), "MMMM dd yy");
+  const formattedStartDate = format(new Date(startDate), "MMMM dd yy");
+  const formattedEndDate = format(new Date(endDate), "MMMM dd yy");
 
   const range = `${formattedStartDate} - ${formattedEndDate}`;
 
@@ -78,7 +73,7 @@ const Search = ({ searchResults }) => {
           </div>
         </section>
         <section className="hidden xl:inline-flex xl:min-w-[600px]">
-          <Map />
+          <Map searchResults={searchResults} />
         </section>
       </main>
       <Footer />
