@@ -4,6 +4,8 @@ import { useSelector } from "react-redux";
 import { format } from "date-fns";
 import InfoCard from "../components/InfoCard";
 
+import Skeleton from "react-loading-skeleton";
+
 const Search = ({ searchResults }) => {
   const { startDate, endDate, numberOfGuests, searchInput } = useSelector(
     (state) => state?.search?.search
@@ -11,8 +13,11 @@ const Search = ({ searchResults }) => {
 
   console.log(searchResults);
 
-  const formattedStartDate = format(new Date(startDate), "MMMM dd yy");
-  const formattedEndDate = format(new Date(endDate), "MMMM dd yy");
+  const formattedStartDate = format(
+    new Date(startDate && startDate),
+    "MMMM dd yy"
+  );
+  const formattedEndDate = format(new Date(endDate && endDate), "MMMM dd yy");
 
   const range = `${formattedStartDate} - ${formattedEndDate}`;
 
@@ -39,31 +44,35 @@ const Search = ({ searchResults }) => {
           </div>
 
           <div className="flex flex-col">
-            {searchResults.map(
-              ({
-                img,
-                lat,
-                location,
-                long,
-                price,
-                star,
-                title,
-                total,
-                description,
-              }) => (
-                <InfoCard
-                  key={img}
-                  img={img}
-                  location={location}
-                  title={title}
-                  lat={lat}
-                  long={long}
-                  price={price}
-                  star={star}
-                  description={description}
-                  total={total}
-                />
+            {searchResults ? (
+              searchResults.map(
+                ({
+                  img,
+                  lat,
+                  location,
+                  long,
+                  price,
+                  star,
+                  title,
+                  total,
+                  description,
+                }) => (
+                  <InfoCard
+                    key={img}
+                    img={img}
+                    location={location}
+                    title={title}
+                    lat={lat}
+                    long={long}
+                    price={price}
+                    star={star}
+                    description={description}
+                    total={total}
+                  />
+                )
               )
+            ) : (
+              <Skeleton count={5} width={1200} height={100} />
             )}
           </div>
         </section>

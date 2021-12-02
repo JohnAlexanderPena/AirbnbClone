@@ -7,6 +7,7 @@ import SmallCard from "../components/SmallCard";
 
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+
 import Footer from "../components/Footer";
 
 export default function Home({ exploreData, cardsData }) {
