@@ -5,6 +5,7 @@ import { format } from "date-fns";
 import InfoCard from "../components/InfoCard";
 
 import Skeleton from "react-loading-skeleton";
+import Map from "../components/Map";
 
 const Search = ({ searchResults }) => {
   const { startDate, endDate, numberOfGuests, searchInput } = useSelector(
@@ -75,6 +76,9 @@ const Search = ({ searchResults }) => {
               <Skeleton count={5} width={1200} height={100} />
             )}
           </div>
+        </section>
+        <section className="hidden xl:inline-flex xl:min-w-[600px]">
+          <Map />
         </section>
       </main>
       <Footer />
