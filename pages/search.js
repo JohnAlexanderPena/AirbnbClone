@@ -42,7 +42,6 @@ const Search = ({ searchResults }) => {
             {searchResults.map(
               ({
                 img,
-                location,
                 lat,
                 location,
                 long,
@@ -50,6 +49,7 @@ const Search = ({ searchResults }) => {
                 star,
                 title,
                 total,
+                description,
               }) => (
                 <InfoCard
                   key={img}
@@ -59,8 +59,8 @@ const Search = ({ searchResults }) => {
                   lat={lat}
                   long={long}
                   price={price}
-                  start={star}
-                  title={title}
+                  star={star}
+                  description={description}
                   total={total}
                 />
               )
